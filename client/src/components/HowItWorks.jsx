@@ -7,7 +7,7 @@ function HowItWorks() {
       <div className="container mx-auto my-32 flex flex-col items-center gap-16 w-full" id='howItWorks'>
         <div className="flex flex-col gap-16">
           <div className="flex flex-col gap-2 text-center">
-            <h2 className="mb-2 text-3xl font-semibold leading-tight text-grey-900 lg:text-5xl">
+            <h2 className="mb-2 text-3xl font-semibold leading-tight text-grey-900 lg:text-4xl">
               How does it works?
             </h2>
             <p className="text-md font-medium leading-7 text-dark-grey-600">

@@ -1,17 +1,20 @@
 import React from "react";
 import Button from "./ui/Button";
+import PropTypes from "prop-types";
 import StatisticsCard from "./ui/StatisticsCard";
 import heroImg from "../assets/interview1.png";
+import AuthForm from "./authForm/AuthForm";
 
-function Hero() {
+function Hero({ showForm, formVisibility }) {
   return (
     <div className="container flex justify-between xs:mt-22 lg:mt-32 font-serif xs:flex-col lg:flex-row lg:w-[95%] 2xl:w-full">
       <div className="lg:w-[45%] xs:w-[90%] xs:mx-[24px] lg:mx-0">
         <img
-          className="object-cover w-full max-w-[85%] lg:hidden justify-self-center mr-8"
+          className="object-cover w-full max-w-[80%] lg:hidden justify-self-center mr-8"
           src={heroImg}
         ></img>
-        <h1 className="lg:mt-24 xs:text-4xl lg:text-6xl xs:text-center lg:text-left sm:text-5xl">
+        {showForm && <AuthForm formVisibility={formVisibility}/>}
+        <h1 className="lg:mt-24 xs:text-4xl lg:text-[3.30rem] xs:text-center lg:text-left sm:text-5xl">
           Master Every{" "}
           <span className="text-orange font-semibold">Interview.</span> Land
           Your Dream Job
@@ -45,11 +48,16 @@ function Hero() {
         </div>
       </div>
       <img
-        className="lg:object-contain xl:object-cover w-full lg:mb-20 xl:mb-0 lg:max-w-[55%] xl:max-w-[50%] lg:block hidden"
+        className="lg:object-contain xl:object-cover w-full lg:mb-20 xl:mb-0 lg:max-w-[50%] xl:max-w-[45%] lg:block hidden"
         src={heroImg}
       ></img>
     </div>
   );
+}
+
+Hero.propTypes = {
+  showForm: PropTypes.bool,
+  formVisibility: PropTypes.func
 }
 
 export default Hero;

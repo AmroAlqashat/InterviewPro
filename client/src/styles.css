@@ -1,41 +1,47 @@
 @import "tailwindcss";
 
-@utility container{
-    max-width: 1536px;
-    margin: 0 auto;
-    display: flex;
+@utility container {
+  max-width: 1536px;
+  margin: 0 auto;
+  display: flex;
 }
 
-@theme { 
-    --color-orange: #FA8334; 
-    --breakpoint-xs: 420px; 
+@theme {
+  --color-orange: #fa8334;
+  --breakpoint-xs: 420px;
 }
 
-.exo-2-logo{
-    font-family: "Exo 2", serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
+.exo-2-logo {
+  font-family: "Exo 2", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
 }
 .plus-jakarta-sans-font {
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 .btn {
-    @apply px-4 py-1.5 rounded-4xl transition-all cursor-pointer duration-200 
-            font-semibold xs:text-[1rem] sm:text-[1.23rem] text-center mx-1;
+  @apply py-1.5 rounded-4xl transition-all cursor-pointer duration-200 
+            font-semibold text-base text-center mx-1;
 }
-.home-btn{
-    @apply text-gray-500 hover:text-white hover:bg-blue-500 ease-in-out active:opacity-80 duration-300;
+.home-btn {
+  @apply text-gray-500 hover:text-white hover:bg-blue-500 ease-in-out active:opacity-80 duration-300 px-4;
 }
-.statistics{
-    @apply flex flex-col w-[28%] text-center font-sans font-semibold;
+.statistics {
+  @apply flex flex-col w-[28%] text-center font-sans font-semibold;
 }
-.hero-btn{
-    @apply transition-all duration-200 px-4 py-2 rounded-2xl font-medium lg:text-[1.1rem] xl:text-[1.23rem] sm:text-lg active:opacity-60;
+.hero-btn {
+  @apply transition-all duration-200 px-4 py-2 rounded-2xl font-medium lg:text-[1rem] xl:text-[1.05rem] sm:text-lg active:opacity-60;
 }
-.footer-btn{
-    @apply transition-all cursor-pointer duration-200 hover:text-gray-400 text-gray-600 px-3 xs:text-sm text-nowrap lg:text-base
+.footer-btn {
+  @apply transition-all cursor-pointer duration-200 hover:text-gray-400 text-gray-600 px-3 xs:text-sm text-nowrap lg:text-base;
+}
+.sign-up-btn-div {
+  @apply border-1 px-6 py-1 rounded-4xl w-[85%] max-w-[85%] justify-center text-nowrap hover:bg-gray-100 duration-200 transition-all active:bg-gray-50;
+}
+.authInput {
+  @apply border-1 border-gray-200 rounded-lg h-[40px] text-gray-500 outline-none focus:ring-gray-500 focus:ring-2 transition-all duration-200;
 }

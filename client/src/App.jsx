@@ -1,19 +1,15 @@
 import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import HowItWorks from './components/HowItWorks';
-import Features from './components/Features';
-import Footer from './components/Footer';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import AuthForm from './components/authForm/AuthForm';
 
 function App() {
 
   return (
     <div>
-      <Header />
-      <Hero />
-      <HowItWorks />
-      <Features />
-      <Footer />
+      <Routes>
+        <Route path="/"  element={<Home />}/>
+      </Routes>
     </div>
   )
 }

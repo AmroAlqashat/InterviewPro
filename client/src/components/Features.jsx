@@ -10,10 +10,10 @@ import timeIcon from "../assets/time.png";
 function Features() {
   return (
     <div className=" flex flex-col mt-[5%] max-w-[1450px] items-center mx-auto text-center plus-jakarta-sans-font" id="features">
-      <h1 className="lg:text-5xl xs:text-3xl mt-[7%] xs:max-w-[95%] 2xl:max-w-[70%] ">
+      <h1 className="lg:text-4xl xs:text-2xl mt-[7%] xs:max-w-[95%] 2xl:max-w-[70%] ">
         Unlock Your Full Potential with AI-Powered interview preparation
       </h1>
-      <h1 className="lg:text-2xl xs:text-md mt-6 text-gray-400 2xl:max-w-[80%] xs:max-w-[95%]">
+      <h1 className="lg:text-lg xs:text-md mt-6 text-gray-400 2xl:max-w-[80%] xs:max-w-[95%]">
         Prepare confidently with our AI-driven platform, offering personalized
         questions, real-time feedback, and performance analysis to help you
         succeed in any interview.

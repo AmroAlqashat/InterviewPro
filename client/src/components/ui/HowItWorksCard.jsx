@@ -14,10 +14,10 @@ const HowItWorksCard = ({ step, title, description, isActive }) => {
         <span className="text-lg font-bold leading-7">{step}</span>
       </div>
       <div className="flex flex-col">
-        <h3 className="mb-2 text-xl font-bold leading-tight text-grey-900">
+        <h3 className="mb-2 text-lg font-bold leading-tight text-grey-900">
           {title}
         </h3>
-        <p className="text-base font-medium leading-7 text-grey-600">
+        <p className="text-sm font-medium leading-7 text-grey-600">
           {description}
         </p>
       </div>
