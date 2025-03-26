@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  created_at   DateTime       @default(now())
+  user_careers user_careers[]
+  sessions     sessions[]
+
+  @@index([email])
+}
+
+model user_careers {
+  id String @id @default(uuid())
+
+  users   users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id String
+
+  careers   careers @relation(fields: [career_id], references: [id])
+  career_id String  @unique
+
+  cvs   cvs    @relation(fields: [cv_id], references: [id], onDelete: Cascade)
+  cv_id String @unique
+}
+
+model careers {
+  id               String        @id @default(uuid())
+  field            String
+  experience_level String
+  user_careers     user_careers?
+
+  @@unique([field, experience_level])
+}
+
+model cvs {
+  id           String        @id @default(uuid())
+  file_name    String
+  file_path    String
+  user_careers user_careers?
+
+  @@unique([file_name, file_path])
+}
+
+model sessions {
+  id                String              @id @default(uuid())
+  users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id           String
+  interview_type    String
+  status            String
+  created_at        DateTime            @default(now())
+  questions         questions[]
+  ai_feedbacks      ai_feedbacks?
+  sessions_progress sessions_progress[]
+}
+
+model questions {
+  id              String        @id @default(uuid())
+  sessions        sessions      @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  session_id      String
+  question_text   String        @unique
+  question_number Int
+  user_answers    user_answers?
+  ai_answers      ai_answers?
+}
+
+model user_answers {
+  id          String    @id @default(uuid())
+  questions   questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+  question_id String    @unique
+  answer_text String
+}
+
+model ai_answers {
+  id          String    @id @default(uuid())
+  questions   questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+  question_id String    @unique
+  answer_text String
+}
+
+model ai_feedbacks {
+  id            String   @id @default(uuid())
+  sessions      sessions @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  session_id    String   @unique
+  feedback_text String
+  rank          Int
+}
+
+model sessions_progress {
+  id            String   @id @default(uuid())
+  sessions      sessions @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  session_id    String
+  last_question Int
+  last_interact DateTime @default(now())
+}

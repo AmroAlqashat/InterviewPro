@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 import LanguageSelector from "./LanguageSelector";
 
 function AuthForm({ formVisibility }) {
-  const [isSignup, setIsSignup] = useState(false);
+  const [existsUser, setExistsUser] = useState(true);
 
   function signupBtnToggle(){
-    setIsSignup(!isSignup);
+    setExistsUser(!existsUser);
   }
 
   return (
@@ -18,9 +18,9 @@ function AuthForm({ formVisibility }) {
         <div className="flex flex-col ">
           <AuthHeader formVisibility={formVisibility}/>
           <div className="flex flex-col md:flex-row justify-between mt-6 md:mt-12">
-            <SignupSection isSignup={isSignup} signupBtnToggle={signupBtnToggle}/>
+            <SignupSection existsUser={existsUser} signupBtnToggle={signupBtnToggle}/>
             <div className="border-t border-gray-200 my-6 md:border-t-0 md:border-l md:h-auto md:mx-2"></div>
-            <LoginSection isSignup={isSignup}/>
+            <LoginSection existsUser={existsUser}/>
           </div>
           <LanguageSelector />
         </div>

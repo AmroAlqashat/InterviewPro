@@ -8,22 +8,24 @@ function Input({
   type = "text",
   placeholder = "",
   value,
+  name,
   onChange,
   label = "",
   className,
   isPassword,
-  isSignup,
+  existsUser,
+  inputError,
 }) {
   const [isPasswordPrivate, setPrivacy] = useState(true);
 
-  function handlePasswordChange() {
+  function passwordChangePrivacy() {
     isPasswordPrivate ? setPrivacy(false) : setPrivacy(true);
   }
 
   return (
     <div className="flex flex-col w-[80%] ">
       <label
-        className={`text-gray-500 text-sm ${
+        className={`${inputError ? `text-red-400` : `text-gray-500`} mt-2 text-sm ${
           isPassword && "flex justify-between"
         }`}
       >
@@ -31,7 +33,8 @@ function Input({
         {isPassword && (
           <button
             className="flex items-center text-gray-500 text-sm gap-2 cursor-pointer"
-            onClick={handlePasswordChange}
+            type="button"
+            onClick={passwordChangePrivacy}
           >
             <img
               className="h-5"
@@ -42,14 +45,15 @@ function Input({
         )}
       </label>
       <input
-        className={`pl-2 ${className}`}
+        className={`pl-2 border-1 ${inputError ? `border-red-400 focus:ring-red-400` : `border-gray-200 focus:ring-gray-500`} ${className}`}
         type={isPassword ? (isPasswordPrivate ? "password" : "text") : type}
         placeholder={placeholder}
         value={value}
+        name={name}
         onChange={onChange}
       />
       {isPassword &&
-        (isSignup || (
+        (!existsUser || (
           <Button
             className="text-gray-700 underline !text-xs self-end"
             label="Forget your password"
@@ -63,11 +67,13 @@ Input.propTypes = {
   type: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   label: PropTypes.string,
   isPassword: PropTypes.bool,
   className: PropTypes.string,
-  isSignup: PropTypes.bool,
+  existsUser: PropTypes.bool,
+  inputError: PropTypes.bool,
 };
 
 export default Input;
