@@ -1,11 +1,11 @@
 import React from "react";
-import FeaturesCard from "./ui/FeaturesCard";
-import questionIcon from "../assets/question-answer_12190947.png";
-import feedBackIcon from "../assets/review.png";
-import progressTrackingIcon from "../assets/follow-up.png";
-import interviewModsIcon from "../assets/mods.png";
-import difficultyIcon from "../assets/difficulty.png";
-import timeIcon from "../assets/time.png";
+import FeaturesCard from "../home/FeaturesCard"
+import questionIcon from "../../assets/question-answer_12190947.png";
+import feedBackIcon from "../../assets/review.png";
+import progressTrackingIcon from "../../assets/follow-up.png";
+import interviewModsIcon from "../../assets/mods.png";
+import difficultyIcon from "../../assets/difficulty.png";
+import timeIcon from "../../assets/time.png";
 
 function Features() {
   return (

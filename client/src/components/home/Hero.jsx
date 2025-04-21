@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 import PropTypes from "prop-types";
-import StatisticsCard from "./ui/StatisticsCard";
-import heroImg from "../assets/interview1.png";
-import AuthForm from "./authForm/AuthForm";
+import StatisticsCard from "./StatisticsCard";
+import heroImg from "../../assets/interview1.png";
+import AuthForm from "../authForm/AuthForm";
 
 function Hero({ showForm, formVisibility }) {
   return (
@@ -27,13 +27,13 @@ function Hero({ showForm, formVisibility }) {
         <div className="flex lg:justify-start xs:justify-center">
           <Button
             className="
-                        hero-btn bg-blue-500 text-white hover:opacity-80 "
+                        hero-btn bg-blue-500 text-white hover:opacity-80 py-1.5"
             label="Get Started"
           />
 
           <Button
             className="
-                        hero-btn border-2 mx-4 border-blue-500  xs:text-sm
+                        py-1.5 hero-btn border-2 mx-4 border-blue-500  xs:text-sm
                         hover:bg-blue-500 hover:text-white  "
             label="Take a Quick Assessment"
           />

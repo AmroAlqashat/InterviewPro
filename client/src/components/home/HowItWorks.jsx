@@ -1,6 +1,6 @@
 import React from 'react';
-import HowItWorksCard from './ui/HowItWorksCard';
-import ArrowSVG from './ui/icons/ArrowSVG.jsx'
+import HowItWorksCard from './HowItWorksCard.jsx';
+import ArrowSVG from '../ui/icons/ArrowSVG.jsx'
 
 function HowItWorks() {
   return (

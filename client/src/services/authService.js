@@ -6,7 +6,8 @@ export const handleAuthSubmit = async (
   setResponseMessage,
   setOpenSnackbar,
   setFormData,
-  setErrors
+  setErrors,
+  navigate
 ) => {
   try {
     const endpoint = existsUser
@@ -19,9 +20,14 @@ export const handleAuthSubmit = async (
         ? { email: formData.email, password: formData.password }
         : formData
     );
-
+    
+    localStorage.setItem("token", response.data.token);
     setResponseMessage(response.data.message);
     setOpenSnackbar(true);
+    setTimeout(() => {
+      navigate(`/dashboard`)
+    }, 1500);
+    
 
     setFormData({ fullName: "", email: "", password: "", confirmPassword: "" });
     setErrors({ fullName: "", email: "", password: "", confirmPassword: "" });

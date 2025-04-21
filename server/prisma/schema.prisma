@@ -20,8 +20,7 @@ model users {
   password     String
   created_at   DateTime       @default(now())
   user_careers user_careers[]
-  sessions     sessions[]
-
+  interviews   interviews[]
   @@index([email])
 }
 
@@ -56,23 +55,23 @@ model cvs {
   @@unique([file_name, file_path])
 }
 
-model sessions {
-  id                String              @id @default(uuid())
-  users             users               @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id           String
-  interview_type    String
-  status            String
-  created_at        DateTime            @default(now())
-  questions         questions[]
-  ai_feedbacks      ai_feedbacks?
-  sessions_progress sessions_progress[]
+model interviews {
+  id                 String               @id @default(uuid())
+  users              users                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id            String
+  interview_type     String
+  status             String
+  created_at         DateTime             @default(now())
+  questions          questions[]
+  ai_feedbacks       ai_feedbacks?
+  interview_progress interview_progress[]
 }
 
 model questions {
   id              String        @id @default(uuid())
-  sessions        sessions      @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  interviews      interviews    @relation(fields: [session_id], references: [id], onDelete: Cascade)
   session_id      String
-  question_text   String        @unique
+  question_text   String
   question_number Int
   user_answers    user_answers?
   ai_answers      ai_answers?
@@ -93,17 +92,24 @@ model ai_answers {
 }
 
 model ai_feedbacks {
-  id            String   @id @default(uuid())
-  sessions      sessions @relation(fields: [session_id], references: [id], onDelete: Cascade)
-  session_id    String   @unique
+  id            String     @id @default(uuid())
+  interviews    interviews @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  session_id    String     @unique
   feedback_text String
   rank          Int
 }
 
-model sessions_progress {
-  id            String   @id @default(uuid())
-  sessions      sessions @relation(fields: [session_id], references: [id], onDelete: Cascade)
+model interview_progress {
+  id            String     @id @default(uuid())
+  interviews    interviews @relation(fields: [session_id], references: [id], onDelete: Cascade)
   session_id    String
   last_question Int
-  last_interact DateTime @default(now())
+  last_interact DateTime   @default(now())
+}
+
+model sessions {
+  sid     String   @id @default(uuid())
+  sess    Json
+  expire  DateTime
+  user_id String?  @unique
 }

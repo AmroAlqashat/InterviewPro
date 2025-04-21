@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { prisma } from "../config/prismaClient.js";
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -27,20 +27,25 @@ const userSignup = async (req, res) => {
           .json({ message: "Server error while hashing password" });
       }
 
-      await prisma.users.create({
+      const user = await prisma.users.create({
         data: {
           name: fullName,
           email: email,
           password: hashPassword,
         },
       });
-      res.status(200).json({ message: "Sign up successful!" });
+      const token = jwt.sign(
+        {userId: user.id},
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      return res.status(200).json({ message: "Sign up successful!", token });
     } else {
-      res.status(409).json({ message: "Email already exists", emailError: true });
+      return res.status(409).json({ message: "Email already exists", emailError: true });
     }
   } catch (error) {
     console.error("Error during user sign up:", error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -52,6 +57,7 @@ const userLogin = async (req, res) => {
         email: email,
       },
       select: {
+        id: true,
         password: true,
       },
     });
@@ -67,7 +73,12 @@ const userLogin = async (req, res) => {
     }
 
     if(isMatch){
-      return res.status(200).json({ message: "Login successful!" });
+      const token = jwt.sign(
+        {userId: user.id},
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      return res.status(200).json({ message: "Login successful!", token });
     } else {
       return res.status(401).json({ message: "Incorrect password", passwordError: true });
     }
