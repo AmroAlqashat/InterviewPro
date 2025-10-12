@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Button from "../ui/Button";
 import Input from "../ui/Input";
 import MySnackbar from "../ui/MySnackbar";
-import { handleAuthSubmit, handleAuthFormValidation } from "../../services/authService";
+import { handleAuthSubmit, handleAuthFormValidation, AuthFormData, Errors } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 
-function LoginSection({ existsUser }) {
-  const [formData, setFormData] = useState({
+interface LoginSectionProps {
+  existsUser: boolean;
+}
+
+function LoginSection({ existsUser }: LoginSectionProps) {
+  const [formData, setFormData] = useState<AuthFormData>({
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<Errors>({
     fullName: "",
     email: "",
     password: "",
@@ -23,7 +26,7 @@ function LoginSection({ existsUser }) {
   const [responseMessage, setResponseMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -31,8 +34,7 @@ function LoginSection({ existsUser }) {
     });
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!handleAuthFormValidation(formData, setErrors, existsUser)) return;
@@ -66,6 +68,7 @@ function LoginSection({ existsUser }) {
               value={formData.fullName}
               onChange={handleChange}
               inputError={!!errors.fullName}
+              existsUser={existsUser}
             />
             <p className="errorLoginMsg">{errors.fullName}</p>
           </>
@@ -81,6 +84,7 @@ function LoginSection({ existsUser }) {
           value={formData.email}
           onChange={handleChange}
           inputError={!!errors.email}
+          existsUser={existsUser}
         />
         <p className="errorLoginMsg">{errors.email}</p>
 
@@ -94,6 +98,7 @@ function LoginSection({ existsUser }) {
           value={formData.password}
           onChange={handleChange}
           inputError={!!errors.password}
+          existsUser={existsUser}
         />
         <p className="errorLoginMsg">{errors.password}</p>
 
@@ -109,6 +114,7 @@ function LoginSection({ existsUser }) {
               value={formData.confirmPassword}
               onChange={handleChange}
               inputError={!!errors.confirmPassword}
+              existsUser={existsUser}
             />
             <p className="errorLoginMsg">{errors.confirmPassword}</p>
           </>
@@ -123,9 +129,5 @@ function LoginSection({ existsUser }) {
     </div>
   );
 }
-
-LoginSection.propTypes = {
-  existsUser: PropTypes.bool,
-};
 
 export default LoginSection;

@@ -1,11 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
 import Button from "../../ui/Button";
 import defaultProfilePic from "../../../assets/profilePicture.png";
 import LogoutSVG from "../../ui/icons/LogoutSVG";
 import MobileSettingsSVG from "../../ui/icons/MobileSettingsSVG";
 
-const UserSection = ({ userProfilePic, isMobile }) => {
+interface UserSectionProps {
+  userProfilePic?: string;
+  isMobile: boolean;
+}
+
+const UserSection = ({ userProfilePic = defaultProfilePic, isMobile }: UserSectionProps) => {
   return (
     <div
       className={`flex ${
@@ -48,11 +51,6 @@ const UserSection = ({ userProfilePic, isMobile }) => {
       </div>
     </div>
   );
-};
-
-UserSection.propTypes = {
-  userProfilePic: PropTypes.string,
-  isMobile: PropTypes.bool,
 };
 
 export default UserSection;

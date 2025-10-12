@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ai_answers {
+  id          String    @id @default(uuid())
+  question_id String    @unique
+  answer_text String
+  questions   questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+}
+
+model ai_feedbacks {
+  id            String     @id @default(uuid())
+  session_id    String     @unique
+  feedback_text String
+  rank          Int
+  interviews    interviews @relation(fields: [session_id], references: [id], onDelete: Cascade)
+}
+
+model careers {
+  id               String        @id @default(uuid())
+  field            String
+  experience_level String
+  user_careers     user_careers?
+
+  @@unique([field, experience_level])
+}
+
+model cvs {
+  id           String        @id @default(uuid())
+  file_name    String
+  file_path    String
+  user_careers user_careers?
+
+  @@unique([file_name, file_path])
+}
+
+model interview_progress {
+  id            String     @id @default(uuid())
+  session_id    String
+  last_question Int
+  last_interact DateTime   @default(now())
+  interviews    interviews @relation(fields: [session_id], references: [id], onDelete: Cascade)
+}
+
+model interviews {
+  id                 String               @id @default(uuid())
+  user_id            String
+  interview_type     String
+  status             String
+  created_at         DateTime             @default(now())
+  ai_feedbacks       ai_feedbacks?
+  interview_progress interview_progress[]
+  users              users                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  questions          questions[]
+}
+
+model questions {
+  id              String        @id @default(uuid())
+  session_id      String
+  question_text   String
+  question_number Int
+  ai_answers      ai_answers?
+  interviews      interviews    @relation(fields: [session_id], references: [id], onDelete: Cascade)
+  user_answers    user_answers?
+}
+
+model sessions {
+  user_id String?  @unique
+  expire  DateTime
+  sess    Json
+  sid     String   @id
+}
+
+model user_answers {
+  id          String    @id @default(uuid())
+  question_id String    @unique
+  answer_text String
+  questions   questions @relation(fields: [question_id], references: [id], onDelete: Cascade)
+}
+
+model user_careers {
+  id        String  @id @default(uuid())
+  user_id   String
+  career_id String  @unique
+  cv_id     String  @unique
+  careers   careers @relation(fields: [career_id], references: [id])
+  cvs       cvs     @relation(fields: [cv_id], references: [id], onDelete: Cascade)
+  users     users   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model users {
+  id           String         @id @default(uuid())
+  name         String
+  email        String         @unique
+  password     String
+  created_at   DateTime       @default(now())
+  interviews   interviews[]
+  user_careers user_careers[]
+
+  @@index([email])
+}

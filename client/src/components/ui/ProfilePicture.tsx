@@ -1,14 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface ProfilePictureProps {
+  profilePicture: string;
+  className: string;
+}
 
-const ProfilePicture = ({ profilePicture, className }) => {
+const ProfilePicture = ({ profilePicture, className }: ProfilePictureProps) => {
     return(
         <img src={profilePicture} className={`rounded-4xl ${className}`}></img>
     )
 }
 
-ProfilePicture.propTypes = {
-    profilePicture: PropTypes.string,
-    className: PropTypes.string,
-}
 export default ProfilePicture;

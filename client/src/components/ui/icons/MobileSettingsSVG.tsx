@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface MobileSettingsSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function MobileSettingsSVG({ className, fillColor = "currentColor" }) {
+
+
+function MobileSettingsSVG({ className, fillColor = "currentColor" }: MobileSettingsSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 20 20">
       <path
@@ -14,8 +18,6 @@ function MobileSettingsSVG({ className, fillColor = "currentColor" }) {
 }
 
 MobileSettingsSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default MobileSettingsSVG;

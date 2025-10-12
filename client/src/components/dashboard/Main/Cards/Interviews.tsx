@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Button from "../../../ui/Button";
 import Input from "../../../ui/Input";
@@ -10,9 +11,9 @@ import OpenEyeSVG from "../../../ui/icons/OpenEyeSVG";
 import ArrowSVG from "../../../ui/icons/ArrowSVG";
 
 const Interviews = () => {
-  const [activeTab, setActiveTab] = useState("ongoing");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [dropdownTitle, setDropdownTitle] = useState("Ongoing Interviews");
+  const [activeTab, setActiveTab] = useState<string>("ongoing");
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [dropdownTitle, setDropdownTitle] = useState<string>("Ongoing Interviews");
 
   const interviews = [
     {
@@ -92,7 +93,7 @@ const Interviews = () => {
     }
   });
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status: string) => {
     const baseClasses = "px-2 py-0.5 rounded-md text-xs font-medium";
     if (status === "Completed") {
       return `${baseClasses} bg-green-100 text-green-700 border border-green-200`;
@@ -102,7 +103,7 @@ const Interviews = () => {
     return `${baseClasses} bg-gray-100 text-gray-700 border border-gray-200`;
   };
 
-  const getScoreColor = (score) => {
+  const getScoreColor = (score: number) => {
     if (score >= 90) return "text-green-600";
     if (score >= 75) return "text-blue-600";
     if (score >= 60) return "text-yellow-600";
@@ -111,11 +112,12 @@ const Interviews = () => {
 
   const dropdownOptions = ["Ongoing Interviews", "Completed Interviews"];
 
-  const handleDropdownChange = (selectedOption) => {
-    setDropdownTitle(selectedOption);
-    if (selectedOption === "Ongoing Interviews") {
+  const handleDropdownChange = (selectedOption: string | { label: string; value: string }) => {
+    const optionString = typeof selectedOption === 'string' ? selectedOption : selectedOption.label;
+    setDropdownTitle(optionString);
+    if (optionString === "Ongoing Interviews") {
       setActiveTab("ongoing");
-    } else if (selectedOption === "Completed Interviews") {
+    } else if (optionString === "Completed Interviews") {
       setActiveTab("completed");
     }
   };
@@ -139,7 +141,7 @@ const Interviews = () => {
           <div className="flex items-center">
             <Input
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
               className="h-8 xs:h-9 sm:h-10 w-full xs:w-40 sm:w-48 md:w-56 lg:w-64 xl:w-56 2xl:w-64 px-2 xs:px-3 sm:px-4 text-xs xs:text-sm placeholder:text-xs xs:placeholder:text-sm placeholder:font-medium outline-none border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Search interviews..."
             />
@@ -201,7 +203,7 @@ const Interviews = () => {
                           <span>{new Date(interview.date).toLocaleDateString()}</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <ClockSVG className="w-3 h-3" fill="currentColor" />
+                          <ClockSVG className="w-3 h-3" fillColor="currentColor" />
                           <span>{interview.duration}</span>
                         </div>
                         {interview.score !== null && (

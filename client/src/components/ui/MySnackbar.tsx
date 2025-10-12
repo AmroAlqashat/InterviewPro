@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-function MySnackbar({ open, onClose, message }) {
+interface MySnackbarProps {
+  open: boolean;
+  onClose: () => void;
+  message: string;
+}
+
+function MySnackbar({ open, onClose, message }: MySnackbarProps) {
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -15,11 +19,5 @@ function MySnackbar({ open, onClose, message }) {
     </Snackbar>
   );
 }
-
-MySnackbar.propTypes = {
-    open: PropTypes.bool,
-    message: PropTypes.string,
-    onClose: PropTypes.func,
-};
 
 export default MySnackbar;

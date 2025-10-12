@@ -1,4 +1,3 @@
-import React from "react";
 import DesktopSettingsSVG from "../../ui/icons/DesktopSettingsSVG";
 import CareersSVG from "../../ui/icons/CareersSVG";
 import CVManagerSVG from "../../ui/icons/CVManagerSVG";

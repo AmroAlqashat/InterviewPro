@@ -1,5 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useState, useRef, useEffect } from "react";
+
+interface DropdownMenuProps {
+  options?: string[] | { label: string; value: string; disabled?: boolean; icon?: any }[];
+  defaultValue?: string;
+  onSelect: (option: string | { label: string; value: string }) => void;
+  placeholder?: string;
+  className?: string;
+  variant?: string;
+  icon?: any;
+  disabled?: boolean;
+}
 
 const DropdownMenu = ({ 
   options = [], 
@@ -10,15 +20,15 @@ const DropdownMenu = ({
   variant = "default",
   icon = null,
   disabled = false
-}) => {
-  const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(defaultValue);
-  const dropdownRef = useRef(null);
+}: DropdownMenuProps) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && event.target && !dropdownRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
@@ -29,11 +39,11 @@ const DropdownMenu = ({
     };
   }, []);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: any) => {
     setSelectedValue(option.label || option);
     setOpen(false);
     if (onSelect) {
-      onSelect(option.value || option, option);
+      onSelect(option.value || option);
     }
   };
 
@@ -96,7 +106,6 @@ const DropdownMenu = ({
             options.map((option, index) => {
               const isObject = typeof option === 'object';
               const label = isObject ? option.label : option;
-              const value = isObject ? option.value : option;
               const disabled = isObject ? option.disabled : false;
               const icon = isObject ? option.icon : null;
 
@@ -130,27 +139,6 @@ const DropdownMenu = ({
       )}
     </div>
   );
-};
-
-DropdownMenu.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        value: PropTypes.any.isRequired,
-        disabled: PropTypes.bool,
-        icon: PropTypes.node
-      })
-    ])
-  ),
-  defaultValue: PropTypes.string,
-  onSelect: PropTypes.func,
-  placeholder: PropTypes.string,
-  className: PropTypes.string,
-  variant: PropTypes.oneOf(["default", "outline", "ghost", "filled"]),
-  icon: PropTypes.node,
-  disabled: PropTypes.bool
 };
 
 export default DropdownMenu;

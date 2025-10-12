@@ -1,45 +1,37 @@
-import React from "react";
 import Button from "./Button";
-import PropTypes from "prop-types";
+
+interface IconButtonProps {
+  label: any;
+  icon?: any;
+  SVG?: any;
+  onClick: any;
+  pClassName?: string;
+  iconClassName?: string;
+  buttonClassName?: string;
+}
 
 function IconButton({
   label,
   icon,
   SVG,
   onClick,
-  href = "",
   pClassName = "",
   iconClassName = "",
   buttonClassName = "",
-}) {
+}: IconButtonProps) {
   return (
     <Button
       className={`flex items-center ${buttonClassName}`}
       onClick={onClick}
-      href={href}
-      label={
-        <>
-          {icon ? (
-            <img className={iconClassName} src={icon} />
-          ) : (
-            <SVG className={iconClassName} />
-          )}
-          <p className={pClassName}>{label}</p>
-        </>
-      }
-    />
+    >
+      {icon ? (
+        <img className={iconClassName} src={icon} alt="" />
+      ) : SVG ? (
+        <SVG className={iconClassName} />
+      ) : null}
+      <p className={pClassName}>{label}</p>
+    </Button>
   );
 }
-
-IconButton.propTypes = {
-  label: PropTypes.string,
-  onClick: PropTypes.func,
-  href: PropTypes.string,
-  pClassName: PropTypes.string,
-  iconClassName: PropTypes.string,
-  buttonClassName: PropTypes.string,
-  icon: PropTypes.string,
-  SVG: PropTypes.elementType,
-};
 
 export default IconButton;

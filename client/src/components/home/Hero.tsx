@@ -1,18 +1,25 @@
 import React from "react";
 import Button from "../ui/Button";
-import PropTypes from "prop-types";
 import StatisticsCard from "./StatisticsCard";
 import heroImg from "../../assets/interview1.png";
 import AuthForm from "../authForm/AuthForm";
 
-function Hero({ showForm, formVisibility }) {
+interface HeroProps {
+  showForm: boolean;
+  formVisibility: () => void;
+}
+
+function Hero({ showForm, formVisibility }: HeroProps): React.ReactElement {
+
   return (
-    <div className="container flex justify-between xs:mt-22 lg:mt-32 font-serif xs:flex-col lg:flex-row lg:w-[95%] 2xl:w-full">
-      <div className="lg:w-[45%] xs:w-[90%] xs:mx-[24px] lg:mx-0">
-        <img
-          className="object-cover w-full max-w-[80%] lg:hidden justify-self-center mr-8"
-          src={heroImg}
-        ></img>
+    <div className="container flex lg:justify-between xs:mt-22 lg:mt-32 font-serif xs:flex-col lg:flex-row lg:w-[95%] 2xl:w-full">
+      <div className="lg:w-[45%] xs:w-full xs:px-4 lg:mx-0 flex flex-col items-center lg:items-start">
+        <div className="lg:hidden w-full flex justify-center items-center mb-8">
+          <img
+            className="object-cover w-4/5 max-w-xs mx-auto block"
+            src={heroImg}
+          />
+        </div>
         {showForm && <AuthForm formVisibility={formVisibility}/>}
         <h1 className="lg:mt-24 xs:text-4xl lg:text-[3.30rem] xs:text-center lg:text-left sm:text-5xl">
           Master Every{" "}
@@ -24,21 +31,17 @@ function Hero({ showForm, formVisibility }) {
           experience level. Get personalized feedback and refine your answers
           before facing real employers.
         </p>
-        <div className="flex lg:justify-start xs:justify-center">
+        <div className="w-full flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4">
           <Button
-            className="
-                        hero-btn bg-blue-500 text-white hover:opacity-80 py-1.5"
+            className="hero-btn bg-blue-500 text-white hover:opacity-80 py-1.5 w-full sm:w-auto"
             label="Get Started"
           />
-
           <Button
-            className="
-                        py-1.5 hero-btn border-2 mx-4 border-blue-500  xs:text-sm
-                        hover:bg-blue-500 hover:text-white  "
+            className="py-1.5 hero-btn border-2 border-blue-500 text-sm w-full sm:w-auto hover:bg-blue-500 hover:text-white"
             label="Take a Quick Assessment"
           />
         </div>
-        <div className="mt-20 flex justify-between ">
+        <div className="mt-20 flex xs:flex-col sm:flex-row xs:space-y-6 sm:space-y-0 sm:justify-between w-full xs:items-center lg:items-start">
           <StatisticsCard header="90%" body="Success Rate in Real Interviews" />
           <StatisticsCard
             header="1000+"
@@ -53,11 +56,6 @@ function Hero({ showForm, formVisibility }) {
       ></img>
     </div>
   );
-}
-
-Hero.propTypes = {
-  showForm: PropTypes.bool,
-  formVisibility: PropTypes.func
 }
 
 export default Hero;

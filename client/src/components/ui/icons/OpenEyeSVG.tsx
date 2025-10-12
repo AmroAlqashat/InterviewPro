@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface OpenEyeSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function OpenEyeSVG({ className, fillColor = "currentColor" }) {
+
+
+function OpenEyeSVG({ className, fillColor = "currentColor" }: OpenEyeSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 20 20">
       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -15,8 +19,6 @@ function OpenEyeSVG({ className, fillColor = "currentColor" }) {
 }
 
 OpenEyeSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default OpenEyeSVG;

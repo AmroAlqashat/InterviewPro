@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Logo from "../../ui/Logo";
 import Button from "../../ui/Button";
 import UserSection from "./UserSection";
 import { navLinks } from "./NavLinks.jsx";
 
 const DesktopNavbar = () => {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState<string>("dashboard");
 
   return (
     <nav className="hidden lg:flex flex-col lg:w-58 xl:w-64 h-screen bg-white border-r border-gray-200 shadow-sm">

@@ -1,4 +1,3 @@
-import { React } from "react";
 import defaultProfilePic from "../../../../assets/profilePicture.png";
 
 const MainHeader = () => {

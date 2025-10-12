@@ -1,7 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+interface HowItWorksCardProps {
+  step: string;
+  title: string;
+  description: string;
+  isActive: boolean;
+}
 
-const HowItWorksCard = ({ step, title, description, isActive }) => {
+const HowItWorksCard = ({ step, title, description, isActive }: HowItWorksCardProps) => {
   return (
     <div className="flex items-start gap-4 w-full ml-[20px]">
       <div
@@ -24,12 +28,5 @@ const HowItWorksCard = ({ step, title, description, isActive }) => {
     </div>
   );
 };
-
-HowItWorksCard.propTypes = {
-    step: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    isActive: PropTypes.bool,
-}
 
 export default HowItWorksCard;

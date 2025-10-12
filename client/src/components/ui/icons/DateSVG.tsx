@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface DateSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function DateSVG({ className, fillColor = "currentColor" }) {
+
+
+function DateSVG({ className, fillColor = "currentColor" }: DateSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 20 20">
       <path
@@ -14,8 +18,6 @@ function DateSVG({ className, fillColor = "currentColor" }) {
 }
 
 DateSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default DateSVG;

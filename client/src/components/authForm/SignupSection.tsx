@@ -1,11 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
 import IconButton from "../ui/IconButton";
 import googleIcon from "../../assets/googleIcon.png";
 import facebookIcon from "../../assets/facebookIcon.png";
 import emailIcon from "../../assets/emailIcon.png";
 
-function SignupSection({ handleGoogleSignup, handleFacebookSignup, signupBtnToggle, existsUser }) {
+interface SignupSectionProps {
+  handleGoogleSignup?: () => void;
+  handleFacebookSignup?: () => void;
+  signupBtnToggle: () => void;
+  existsUser: boolean;
+}
+
+function SignupSection({ handleGoogleSignup = () => {}, handleFacebookSignup = () => {}, signupBtnToggle, existsUser }: SignupSectionProps) {
   const signupButtons = [
     { icon: googleIcon, label: "Continue with Google", onClick: handleGoogleSignup },
     { icon: facebookIcon, label: "Continue with Facebook", onClick: handleFacebookSignup  },
@@ -17,7 +22,7 @@ function SignupSection({ handleGoogleSignup, handleFacebookSignup, signupBtnTogg
   ];
 
   return (
-    <div className="flex flex-col items-center gap-4 w-full px-6 md:w-[50%] mt-4 md:mt-8">
+    <div className="flex flex-col items-center gap-4 w-full px-6 md:w-[50%] mt-0 md:mt-8">
       <h1 className="font-semibold text-lg mb-1">Sign up</h1>
       {signupButtons.map((btn, index) => (
         <IconButton
@@ -38,12 +43,5 @@ function SignupSection({ handleGoogleSignup, handleFacebookSignup, signupBtnTogg
     </div>
   );
 }
-
-SignupSection.propTypes = {
-  handleGoogleSignup: PropTypes.func,
-  handleFacebookSignup: PropTypes.func,
-  signupBtnToggle: PropTypes.func,
-  existsUser: PropTypes.bool,
-};
 
 export default SignupSection;

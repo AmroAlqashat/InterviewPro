@@ -1,4 +1,3 @@
-import React from 'react';
 import HowItWorksCard from './HowItWorksCard.jsx';
 import ArrowSVG from '../ui/icons/ArrowSVG.jsx'
 

@@ -1,11 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
 import UserSection from "./UserSection";
 import Logo from "../../ui/Logo";
 import Button from "../../ui/Button";
 import { navLinks } from "./NavLinks.jsx";
 
-const MobileNavbar = ({ toggleMenu, isMenuOpen }) => {
+interface MobileNavbarProps {
+  toggleMenu: () => void;
+  isMenuOpen: boolean;
+}
+
+const MobileNavbar = ({ toggleMenu, isMenuOpen }: MobileNavbarProps) => {
   return (
     <div className="bg-white shadow-sm lg:hidden">
       <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100">
@@ -77,11 +80,6 @@ const MobileNavbar = ({ toggleMenu, isMenuOpen }) => {
       </div>
     </div>
   );
-};
-
-MobileNavbar.propTypes = {
-  toggleMenu: PropTypes.func.isRequired,
-  isMenuOpen: PropTypes.bool.isRequired,
 };
 
 export default MobileNavbar;

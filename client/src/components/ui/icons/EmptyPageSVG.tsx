@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface EmptyPageSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function EmptyPageSVG({ className, fillColor = "currentColor" }) {
+
+
+function EmptyPageSVG({ className, fillColor = "currentColor" }: EmptyPageSVGProps) {
   return (
     <svg
       className={`${className}`}
@@ -20,8 +24,6 @@ function EmptyPageSVG({ className, fillColor = "currentColor" }) {
 }
 
 EmptyPageSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default EmptyPageSVG;

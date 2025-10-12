@@ -1,4 +1,3 @@
-import React from "react";
 import FeaturesCard from "../home/FeaturesCard"
 import questionIcon from "../../assets/question-answer_12190947.png";
 import feedBackIcon from "../../assets/review.png";

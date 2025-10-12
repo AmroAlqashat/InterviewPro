@@ -1,7 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types'
+interface ArrowSVGProps {
+  className?: string;
+  fillColor?: string;
+}
 
-function ArrowSVG({ className, fillColor = 'currentColor' }) {
+function ArrowSVG({ className, fillColor = 'currentColor' }: ArrowSVGProps) {
     return (
       <div className={`${className}`}>
         <svg
@@ -28,11 +30,6 @@ function ArrowSVG({ className, fillColor = 'currentColor' }) {
         </svg>
       </div>
     );
-};
-
-ArrowSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 }
 
 export default ArrowSVG;

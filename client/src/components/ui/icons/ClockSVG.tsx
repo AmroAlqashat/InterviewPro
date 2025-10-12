@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface ClockSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function ClockSVG({ className, fillColor = "currentColor" }) {
+
+
+function ClockSVG({ className, fillColor = "currentColor" }: ClockSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 24 24">
       <path
@@ -14,8 +18,6 @@ function ClockSVG({ className, fillColor = "currentColor" }) {
 }
 
 ClockSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default ClockSVG;

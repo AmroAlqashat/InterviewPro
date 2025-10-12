@@ -3,7 +3,8 @@
 @utility container {
   max-width: 1536px;
   margin: 0 auto;
-  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @theme {
@@ -31,7 +32,7 @@
   @apply text-gray-500 hover:text-white hover:bg-blue-500 ease-in-out active:opacity-80 duration-300 px-4;
 }
 .statistics {
-  @apply flex flex-col w-[28%] text-center font-sans font-semibold;
+  @apply flex flex-col xs:w-full sm:w-[28%] text-center font-sans font-semibold xs:mb-4 sm:mb-0;
 }
 .hero-btn {
   @apply transition-all duration-200 px-4 py-2 rounded-2xl font-medium lg:text-[1rem] xl:text-[1.05rem] sm:text-lg active:opacity-60;

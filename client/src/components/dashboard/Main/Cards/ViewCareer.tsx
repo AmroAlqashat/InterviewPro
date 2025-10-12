@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 
-const ViewCareer = ({ className }) => {
+interface ViewCareerProps {
+  className: string;
+}
+
+const ViewCareer = ({ className }: ViewCareerProps) => {
   const [currentCareer] = useState({
     title: "Frontend Developer",
     level: "Mid-Level",
@@ -75,10 +78,6 @@ const ViewCareer = ({ className }) => {
       </div>
     </div>
   );
-};
-
-ViewCareer.propTypes = {
-  className: PropTypes.string,
 };
 
 export default ViewCareer;

@@ -1,14 +1,14 @@
 import axios from "axios";
 import { NavigateFunction } from "react-router-dom";
 
-interface FormData {
+export interface AuthFormData {
   fullName?: string;
   email: string;
   password: string;
   confirmPassword?: string;
 }
 
-interface Errors {
+export interface Errors {
   fullName?: string;
   email?: string;
   password?: string;
@@ -16,25 +16,31 @@ interface Errors {
 }
 
 export const handleAuthSubmit = async (
-  formData: FormData,
+  formData: AuthFormData,
   existsUser: boolean,
   setResponseMessage: (message: string) => void,
   setOpenSnackbar: (open: boolean) => void,
-  setFormData: (data: FormData) => void,
+  setFormData: (data: AuthFormData) => void,
   setErrors: (errors: Errors) => void,
   navigate: NavigateFunction
 ): Promise<void> => {
   try {
     const endpoint = existsUser
-      ? "http://localhost:5000/api/auth/login"
-      : "http://localhost:5000/api/auth/signup";
+      ? "http://localhost:4000/api/user/login"
+      : "http://localhost:4000/api/user/signup";
 
     const response = await axios.post(
       endpoint,
       existsUser
         ? { email: formData.email, password: formData.password }
-        : formData
+        : {
+            email: formData.email,
+            fullName: formData.fullName,
+            password: formData.password,
+          }
     );
+
+    console.log("Response from server:", response.data);
 
     localStorage.setItem("token", response.data.token);
     setResponseMessage(response.data.message);
@@ -46,17 +52,28 @@ export const handleAuthSubmit = async (
     setFormData({ fullName: "", email: "", password: "", confirmPassword: "" });
     setErrors({ fullName: "", email: "", password: "", confirmPassword: "" });
   } catch (error: any) {
-    const errorData = error.response.data;
-    if (errorData.emailError) {
-      setErrors({ email: errorData.message });
-    } else if (errorData.passwordError) {
-      setErrors({ password: errorData.message });
+    console.log("Error during form submission:", error.response);
+
+    if (error.response) {
+      const status = error.response.status;
+      const errorData = error.response.data;
+
+      if (errorData.errorType === 'email') {
+        setErrors({ email: errorData.message });
+      } else if (errorData.errorType === 'password') {
+        setErrors({ password: errorData.message });
+      }
+      else if (errorData.message) {
+        setErrors({ email: errorData.message });
+      }
+    } else {
+      setErrors({ email: "An error occurred. Please try again." });
     }
   }
 };
 
 export const handleAuthFormValidation = (
-  formData: FormData,
+  formData: AuthFormData,
   setErrors: (errors: Errors) => void,
   existsUser: boolean
 ): boolean => {

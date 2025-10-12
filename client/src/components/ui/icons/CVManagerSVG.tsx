@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface CVManagerSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function CVManagerSVG({ className, fillColor = "currentColor" }) {
+
+
+function CVManagerSVG({ className, fillColor = "currentColor" }: CVManagerSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 24 24">
       <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
@@ -11,8 +15,6 @@ function CVManagerSVG({ className, fillColor = "currentColor" }) {
 }
 
 CVManagerSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default CVManagerSVG;

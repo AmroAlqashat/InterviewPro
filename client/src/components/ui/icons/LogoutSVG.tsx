@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+interface LogoutSVGProps {
+  className: string;
+  fillColor?: string;
+}
 
-function LogoutSVG({ className, fillColor = "currentColor" }) {
+
+
+function LogoutSVG({ className, fillColor = "currentColor" }: LogoutSVGProps) {
   return (
     <svg className={`${className}`} fill={`${fillColor}`} viewBox="0 0 20 20">
       <path
@@ -14,8 +18,6 @@ function LogoutSVG({ className, fillColor = "currentColor" }) {
 }
 
 LogoutSVG.propTypes = {
-  className: PropTypes.string,
-  fillColor: PropTypes.string,
 };
 
 export default LogoutSVG;

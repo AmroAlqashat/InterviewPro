@@ -1,4 +1,3 @@
-import React from "react";
 import Interviews from "./Cards/Interviews";
 import MainHeader from "./Cards/MainHeader";
 import ViewCV from "./Cards/ViewCV";

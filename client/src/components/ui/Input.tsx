@@ -1,8 +1,21 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 import Button from "./Button";
 import showPassword from "../../assets/showPassword.png";
 import hidePassword from "../../assets/hidePassword.png";
+
+interface InputProps {
+  type?: string;
+  placeholder?: string;
+  value: any;
+  name?: any;
+  onChange: any;
+  label?: string;
+  className: any;
+  isPassword?: any;
+  existsUser?: any;
+  inputError?: any;
+  labelClassName?: any;
+}
 
 function Input({
   type = "text",
@@ -16,7 +29,7 @@ function Input({
   existsUser,
   inputError,
   labelClassName,
-}) {
+}: InputProps) {
   const [isPasswordPrivate, setPrivacy] = useState(true);
 
   function passwordChangePrivacy() {
@@ -63,19 +76,5 @@ function Input({
     </div>
   );
 }
-
-Input.propTypes = {
-  type: PropTypes.string,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-  name: PropTypes.string,
-  onChange: PropTypes.func,
-  label: PropTypes.string,
-  isPassword: PropTypes.bool,
-  className: PropTypes.string,
-  existsUser: PropTypes.bool,
-  inputError: PropTypes.bool,
-  labelClassName: PropTypes.string,
-};
 
 export default Input;

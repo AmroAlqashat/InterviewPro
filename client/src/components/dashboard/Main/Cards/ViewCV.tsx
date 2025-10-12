@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from "react";
 
-const ViewCV = ({ className }) => {
+interface ViewCVProps {
+  className: string;
+}
+
+const ViewCV = ({ className }: ViewCVProps) => {
   const [currentCV] = useState({
     name: "John_Doe_Resume.pdf",
     role: "Frontend Developer",
@@ -12,7 +15,7 @@ const ViewCV = ({ className }) => {
     version: "v2.1"
   });
 
-  const formatDate = (dateString) =>
+  const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
       month: "short",
@@ -87,10 +90,6 @@ const ViewCV = ({ className }) => {
       </div>
     </div>
   );
-};
-
-ViewCV.propTypes = {
-  className: PropTypes.string,
 };
 
 export default ViewCV;
