@@ -18,10 +18,12 @@ function Dashboard(): React.ReactElement {
       try {
         if (!token) throw new Error("No token found");
 
+        console.log(token)
+
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         const expirationTime = decodedToken.exp * 1000;
         if (Date.now() >= expirationTime) throw new Error("Token expired");
-        await axios.get("http://localhost:5000/api/protected/dashboard", {
+        await axios.get("http://localhost:4000/api/protected/dashboard", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

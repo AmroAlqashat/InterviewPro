@@ -5,6 +5,10 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from 'generated/prisma';
 import { ConflictException } from '@nestjs/common';
+import * as jwt from 'jsonwebtoken';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 @Injectable()
 export class UserService {
@@ -61,8 +65,6 @@ export class UserService {
       throw error
     });
 
-
-
     const match = await bcrypt.compare(password, user.password)
     .catch((error) => {
         this.logger.error('Error during password comparison', error);
@@ -75,6 +77,12 @@ export class UserService {
       });
     }
 
-    return { message: 'User logged in successfully' };
+    const token = jwt.sign(
+      { userId: user.id }, 
+      process.env.JWTSECRET as string, 
+      { expiresIn: '1h' }
+    );
+
+    return { message: 'User logged in successfully', token };
   }
 }
