@@ -1,18 +1,27 @@
-import { useState } from "react";
+import { useUserData } from "../../../../context/UserDataContext";
 
 interface ViewCareerProps {
   className: string;
 }
 
 const ViewCareer = ({ className }: ViewCareerProps) => {
-  const [currentCareer] = useState({
-    title: "Frontend Developer",
-    level: "Mid-Level",
-    skills: ["React", "JavaScript", "TypeScript", "System Design", "Problem Solving"],
-    interviewsCompleted: 12,
-    averageScore: 85,
-    status: "Current"
-  });
+  const { activeCareer } = useUserData();
+
+  if (!activeCareer) {
+    return (
+      <div className={`${className} flex flex-col h-full min-h-48 xs:min-h-56 sm:min-h-64 md:min-h-72 lg:min-h-80 xl:min-h-72 2xl:min-h-80`}>
+        <div className="flex items-center justify-between mb-2 xs:mb-3 sm:mb-4">
+          <div>
+            <h2 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-base 2xl:text-lg font-bold text-gray-900">Current Career</h2>
+            <p className="text-xs sm:text-sm text-gray-500">Practice for this role</p>
+          </div>
+        </div>
+        <div className="flex-1 bg-white rounded-xl shadow-sm border border-gray-200 flex items-center justify-center">
+          <p className="text-gray-500">No active career selected</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${className} flex flex-col h-full min-h-48 xs:min-h-56 sm:min-h-64 md:min-h-72 lg:min-h-80 xl:min-h-72 2xl:min-h-80`}>
@@ -24,7 +33,7 @@ const ViewCareer = ({ className }: ViewCareerProps) => {
         </div>
         <span className="inline-flex items-center px-2 xs:px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
           <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></div>
-          {currentCareer.status}
+          Current
         </span>
       </div>
 
@@ -41,10 +50,10 @@ const ViewCareer = ({ className }: ViewCareerProps) => {
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-sm 2xl:text-base font-bold text-gray-900 truncate mb-1 xs:mb-2">
-              {currentCareer.title}
+              {activeCareer.title}
             </h3>
             <span className="inline-flex items-center px-2 xs:px-3 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800">
-              {currentCareer.level}
+              {activeCareer.level}
             </span>
           </div>
         </div>
@@ -60,7 +69,7 @@ const ViewCareer = ({ className }: ViewCareerProps) => {
                 </svg>
                 <span className="text-sm font-semibold text-blue-700">Interviews</span>
               </div>
-              <p className="text-lg font-bold text-blue-900">{currentCareer.interviewsCompleted} completed</p>
+              <p className="text-lg font-bold text-blue-900">{activeCareer.interviewsCompleted} completed</p>
             </div>
             
             {/* Average Score Card */}
@@ -71,7 +80,7 @@ const ViewCareer = ({ className }: ViewCareerProps) => {
                 </svg>
                 <span className="text-sm font-semibold text-blue-700">Avg Score</span>
               </div>
-              <p className="text-lg font-bold text-blue-900">{currentCareer.averageScore}%</p>
+              <p className="text-lg font-bold text-blue-900">{activeCareer.avgScore}%</p>
             </div>
           </div>
         </div>

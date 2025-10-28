@@ -20,17 +20,25 @@ export class UserService {
 
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
-      await this.prisma.users.create({
+      const user = await this.prisma.users.create({
         data: {
           name: fullName,
           email,
           password: hashedPassword,
         },
       });
-      return { message: 'User signed up successfully' };
-    } catch (error: any) {
-      this.logger.error('Error during signup', 'code' in error);
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+
+    
+    const token = jwt.sign(
+      { userId: user.id }, 
+      process.env.JWTSECRET as string, 
+      { expiresIn: '1h' }
+    );
+
+    return { message: 'User signed up successfully', token };
+  } catch (error: any) {
+    this.logger.error('Error during signup', 'code' in error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code == 'P2002') {
           throw new ConflictException({
             message: 'Email already exists',

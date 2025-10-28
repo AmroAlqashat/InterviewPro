@@ -1,11 +1,21 @@
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../ui/Logo";
 import Button from "../../ui/Button";
 import UserSection from "./UserSection";
 import { navLinks } from "./NavLinks.jsx";
 
 const DesktopNavbar = () => {
-  const [activeTab, setActiveTab] = useState<string>("dashboard");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<string>(
+    navLinks.find(link => link.path === location.pathname)?.id || "dashboard"
+  );
+
+  const handleNavigation = (link: any) => {
+    setActiveTab(link.id);
+    navigate(link.path);
+  };
 
   return (
     <nav className="hidden lg:flex flex-col lg:w-58 xl:w-64 h-screen bg-white border-r border-gray-200 shadow-sm">
@@ -17,7 +27,7 @@ const DesktopNavbar = () => {
           {navLinks.map((link) => (
             <li key={link.id}>
               <Button
-                onClick={() => setActiveTab(link.id)}
+                onClick={() => handleNavigation(link)}
                 className={`w-full flex items-center px-3 lg:px-4 py-2.5 lg:py-3 rounded-lg font-medium transition-all duration-200 group text-sm lg:text-base ${
                   activeTab === link.id
                     ? "bg-blue-50 text-blue-700 shadow"

@@ -1,19 +1,27 @@
-import { useState } from "react";
+import { useUserData } from "../../../../context/UserDataContext";
 
 interface ViewCVProps {
   className: string;
 }
 
 const ViewCV = ({ className }: ViewCVProps) => {
-  const [currentCV] = useState({
-    name: "John_Doe_Resume.pdf",
-    role: "Frontend Developer",
-    uploadDate: "2024-01-15",
-    size: "2.4 MB",
-    status: "Active",
-    lastUpdated: "2024-01-20",
-    version: "v2.1"
-  });
+  const { activeCv } = useUserData();
+
+  if (!activeCv) {
+    return (
+      <div className={`${className} flex flex-col h-full min-h-48 xs:min-h-56 sm:min-h-64 md:min-h-72 lg:min-h-80 xl:min-h-72 2xl:min-h-80`}>
+        <div className="flex items-center justify-between mb-2 xs:mb-3 sm:mb-4">
+          <div>
+            <h2 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-base 2xl:text-lg font-bold text-gray-900">Current CV</h2>
+            <p className="text-xs sm:text-sm text-gray-500">Your active resume</p>
+          </div>
+        </div>
+        <div className="flex-1 bg-white rounded-xl shadow-sm border border-gray-200 flex items-center justify-center">
+          <p className="text-gray-500">No active CV selected</p>
+        </div>
+      </div>
+    );
+  }
 
   const formatDate = (dateString: string) =>
     new Date(dateString).toLocaleDateString("en-US", {
@@ -23,7 +31,7 @@ const ViewCV = ({ className }: ViewCVProps) => {
     });
 
   const handlePreview = () => {
-    console.log("Preview CV:", currentCV.name);
+    console.log("Preview CV:", activeCv.name);
   };
 
   return (
@@ -36,7 +44,7 @@ const ViewCV = ({ className }: ViewCVProps) => {
         </div>
         <span className="inline-flex items-center px-2 xs:px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 border border-green-200">
           <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></div>
-          {currentCV.status}
+          Active
         </span>
       </div>
 
@@ -54,8 +62,8 @@ const ViewCV = ({ className }: ViewCVProps) => {
 
           {/* File Name and Size */}
           <div className="mb-2 xs:mb-3 sm:mb-4">
-            <h3 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-sm 2xl:text-base font-semibold text-gray-900 mb-1 truncate px-1 xs:px-2">{currentCV.name}</h3>
-            <p className="text-xs sm:text-sm text-gray-500 font-medium">{currentCV.size}</p>
+            <h3 className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-sm 2xl:text-base font-semibold text-gray-900 mb-1 truncate px-1 xs:px-2">{activeCv.name}</h3>
+            <p className="text-xs sm:text-sm text-gray-500 font-medium">{activeCv.size}</p>
           </div>
 
          {/* Role, Date, and Preview Button - Improved Responsive Layout */}
@@ -65,14 +73,14 @@ const ViewCV = ({ className }: ViewCVProps) => {
               <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h2zm3-3a1 1 0 00-1 1v1h4V5a1 1 0 00-1-1H9zm-3 4h8v6H6V8z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium text-gray-700 truncate">{currentCV.role}</span>
+              <span className="font-medium text-gray-700 truncate">{activeCv.position}</span>
             </div>
             {/* Date */}
             <div className="flex items-center space-x-1 text-xs text-gray-600 bg-gray-50 rounded-lg py-2 px-2 flex-1 min-w-0">
               <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1 1zM4 7h12v9a1 1 0 01-1 1H5a1 1 0 01-1-1V7z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium text-gray-700 truncate">{formatDate(currentCV.lastUpdated)}</span>
+              <span className="font-medium text-gray-700 truncate">{formatDate(activeCv.uploadDate)}</span>
             </div>
             {/* Preview Button */}
             <button
